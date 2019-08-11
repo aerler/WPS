@@ -1,0 +1,427 @@
+========================================
+name=ST
+        z_dim_name=num_st_layers
+        derived=yes
+        fill_lev =  10 : ST000010(200100)
+        fill_lev =  40 : ST010040(200100)
+        fill_lev = 100 : ST040100(200100)
+        fill_lev = 200 : ST100200(200100)
+========================================
+name=SM
+        z_dim_name=num_sm_layers
+        derived=yes
+        fill_lev =  10 : SM000010(200100)
+        fill_lev =  40 : SM010040(200100)
+        fill_lev = 100 : SM040100(200100)
+        fill_lev = 200 : SM100200(200100)
+========================================
+name=SOIL_LAYERS
+        derived=yes
+        z_dim_name=num_st_layers
+        flag_in_output=FLAG_SOIL_LAYERS
+        fill_lev=all:vertical_index; level_template=ST
+========================================
+name=PRES
+        z_dim_name=num_metgrid_levels
+        derived=yes
+        mandatory=yes    # MUST HAVE THIS FIELD
+        fill_lev=all:PRESSURE
+        fill_lev=200100:PSFC(200100)
+        fill_lev=all:vertical_index; level_template=TT
+========================================
+name=LANDSEA
+        interp_option=nearest_neighbor
+        fill_missing=-1.
+        fill_lev=200100:LANDMASK(1)
+========================================
+name=SST
+        interp_option=four_pt+wt_average_4pt+search
+        interp_mask=LANDSEA(>0.01)
+        masked=land
+        missing_value=1.E36
+        fill_missing=0.
+        flag_in_output=FLAG_SST
+========================================
+name=XICE ; output_name=SEAICE  # If we get XICE, use entry from SEAICE and
+                                #   write the field out as SEAICE
+========================================
+name=SEAICE
+        interp_option=four_pt+wt_average_4pt+search
+        interp_mask=LANDSEA(>0.01)
+        masked=land
+        missing_value=1.E36
+        fill_missing=0.
+========================================
+name=H0ML
+        interp_option=four_pt+wt_average_4pt+search
+        interp_mask=LANDSEA(>0.01)
+        masked=land
+        fill_missing=0.
+========================================
+name=SNOW
+        interp_option=four_pt+wt_average_4pt+wt_average_16pt
+        masked=water
+        fill_missing=0.
+        flag_in_output=FLAG_SNOW
+========================================
+name=SNOWSI
+        interp_option=four_pt+wt_average_4pt+search
+        interp_mask=LANDSEA(>0.01)
+        masked=land
+        fill_missing=0.
+========================================
+name=ALBSI
+        interp_option=four_pt+wt_average_4pt+search
+        interp_mask=LANDSEA(>0.01)
+        masked=land
+        fill_missing=0.
+========================================
+name=SITHIK
+        interp_option=four_pt+wt_average_4pt+search
+        interp_mask=LANDSEA(>0.01)
+        masked=land
+        fill_missing=0.
+========================================
+name=SKINTEMP
+        interp_option=four_pt+wt_average_4pt+wt_average_16pt+search
+        masked=both
+        interp_land_mask  = LANDSEA(1)
+        interp_water_mask = LANDSEA(0)
+        fill_missing=0.
+========================================
+name=PSFC
+        interp_option=four_pt+wt_average_4pt
+        fill_lev=200100:const(200100.)
+        flag_in_output=FLAG_PSFC
+========================================
+name=VEGCAT
+        interp_option=nearest_neighbor+search
+        fill_missing=0.
+        flag_in_output=FLAG_VEGCAT
+========================================
+name=CANWAT
+        interp_option=four_pt+wt_average_4pt
+        fill_missing=0.
+========================================
+name=SOILCAT
+        interp_option=nearest_neighbor+search
+        fill_missing=0.
+        flag_in_output=FLAG_SOILCAT
+========================================
+name=SM000010
+        interp_option=sixteen_pt+four_pt+wt_average_4pt+search
+        masked=water
+        interp_mask=LANDSEA(0)
+        missing_value=1.E36
+        fill_missing=1.
+        flag_in_output=FLAG_SM000010
+========================================
+name=SM010040
+        interp_option=sixteen_pt+four_pt+wt_average_4pt+search
+        masked=water
+        interp_mask=LANDSEA(0)
+        missing_value=1.E36
+        fill_missing=1.
+        flag_in_output=FLAG_SM010040
+========================================
+name=SM040100
+        interp_option=sixteen_pt+four_pt+wt_average_4pt+search
+        masked=water
+        interp_mask=LANDSEA(0)
+        missing_value=1.E36
+        fill_missing=1.
+        flag_in_output=FLAG_SM040100
+========================================
+name=SM100200
+        interp_option=sixteen_pt+four_pt+wt_average_4pt+search
+        masked=water
+        interp_mask=LANDSEA(0)
+        missing_value=1.E36
+        fill_missing=1.
+        flag_in_output=FLAG_SM100200
+========================================
+name=ST000010
+        interp_option=sixteen_pt+four_pt+wt_average_4pt+search
+        masked=water
+        interp_mask=LANDSEA(0)
+        missing_value=1.E36
+        fill_missing=285.
+        flag_in_output=FLAG_ST000010
+========================================
+name=ST010040
+        interp_option=sixteen_pt+four_pt+wt_average_4pt+search
+        masked=water
+        interp_mask=LANDSEA(0)
+        missing_value=1.E36
+        fill_missing=285.
+        flag_in_output=FLAG_ST010040
+========================================
+name=ST040100
+        interp_option=sixteen_pt+four_pt+wt_average_4pt+search
+        masked=water
+        interp_mask=LANDSEA(0)
+        missing_value=1.E36
+        fill_missing=285.
+        flag_in_output=FLAG_ST040100
+========================================
+name=ST100200
+        interp_option=sixteen_pt+four_pt+wt_average_4pt+search
+        masked=water
+        interp_mask=LANDSEA(0)
+        missing_value=1.E36
+        fill_missing=285.
+        flag_in_output=FLAG_ST100200
+========================================
+name=PMSL
+        interp_option=sixteen_pt+four_pt+wt_average_4pt
+        flag_in_output=FLAG_SLP
+========================================
+name=RH
+        interp_option=sixteen_pt+four_pt+wt_average_4pt
+        fill_missing=0.
+        fill_lev=200100:const(0.)
+========================================
+name=SPECHUMD
+        interp_option=sixteen_pt+four_pt+wt_average_4pt
+        fill_missing=0.
+        missing_value=1.E36
+        fill_lev=200100:const(0.)
+        flag_in_output=FLAG_SH
+========================================
+name=TAVGSFC
+        interp_option=four_pt+wt_average_4pt
+        fill_missing=0.
+        fill_lev=200100:TT(200100)
+        flag_in_output=FLAG_TAVGSFC
+========================================
+name=T ; output_name=TT  # If we get T, use entry from TT and
+                         #   write the field out as TT
+========================================
+name=TT
+        mandatory=yes    # MUST HAVE THIS FIELD
+        interp_option=sixteen_pt+four_pt+wt_average_4pt
+        fill_missing=0.
+        fill_lev=200100:const(1.E36)
+========================================
+name=U ; output_name=UU  # If we get U, use entry from UU and
+                         #   write the field out as UU
+========================================
+name=UU
+        mandatory=yes    # MUST HAVE THIS FIELD
+        interp_option=sixteen_pt+four_pt+wt_average_4pt
+        is_u_field=yes
+        output_stagger=U
+        fill_missing=0.
+        fill_lev=200100:const(1.E36)
+========================================
+name=V ; output_name=VV  # If we get V, use entry from VV and
+                         #   write the field out as VV
+========================================
+name=VV
+        mandatory=yes    # MUST HAVE THIS FIELD
+        interp_option=sixteen_pt+four_pt+wt_average_4pt
+        is_v_field=yes
+        output_stagger=V
+        fill_missing=0.
+        fill_lev=200100:const(1.E36)
+========================================
+name=QV
+        interp_option=four_pt+wt_average_4pt
+        fill_missing=0.
+        fill_lev=200100:const(0.)
+        flag_in_output=FLAG_QV
+========================================
+name=QR
+        interp_option=four_pt+wt_average_4pt
+        fill_missing=0.
+        fill_lev=200100:const(0.)
+        flag_in_output=FLAG_QR
+========================================
+name=QC
+        interp_option=four_pt+wt_average_4pt
+        fill_missing=0.
+        fill_lev=200100:const(0.)
+        flag_in_output=FLAG_QC
+========================================
+name=QI
+        interp_option=four_pt+wt_average_4pt
+        fill_missing=0.
+        fill_lev=200100:const(0.)
+        flag_in_output=FLAG_QI
+========================================
+name=QS
+        interp_option=four_pt+wt_average_4pt
+        fill_missing=0.
+        fill_lev=200100:const(0.)
+        flag_in_output=FLAG_QS
+========================================
+name=QG
+        interp_option=four_pt+wt_average_4pt
+        fill_missing=0.
+        fill_lev=200100:const(0.)
+        flag_in_output=FLAG_QG
+========================================
+name=QNI
+        interp_option=four_pt+wt_average_4pt
+        fill_missing=0.
+        fill_lev=200100:const(0.)
+        flag_in_output=FLAG_QNI
+========================================
+name=VPTMP
+        interp_option=sixteen_pt+four_pt+wt_average_4pt
+        fill_missing=0.
+        fill_lev=200100:const(0.)
+========================================
+name=PRESSURE
+        interp_option=sixteen_pt+four_pt+wt_average_4pt
+        fill_missing=0.
+        fill_lev=200100:PSFC(200100)
+========================================
+name=GHT
+        interp_option=sixteen_pt+four_pt+wt_average_4pt
+        fill_missing=0.
+        fill_lev=200100:SOILHGT(200100)
+        fill_lev=200100:HGT_M(1)
+========================================
+name=HGTT
+        output=no
+        interp_option=nearest_neighbor
+========================================
+name=SNOWH
+        interp_option=four_pt+wt_average_4pt
+        masked=water
+        fill_missing=0.
+        flag_in_output=FLAG_SNOWH
+========================================
+name=SOILHGT
+        interp_option=four_pt+wt_average_4pt
+        flag_in_output=FLAG_SOILHGT
+========================================
+name=TMN
+        interp_option=sixteen_pt+four_pt+wt_average_4pt+search
+        masked=water
+        interp_mask=LANDSEA(0)
+        missing_value=1.E36
+        fill_missing=285.
+        flag_in_output=FLAG_TMN
+========================================
+name=TLAKE
+        interp_option=four_pt+wt_average_4pt+search
+        interp_mask=LANDSEA(>0.01)
+        masked=land
+        fill_missing=0.
+        flag_in_output=FLAG_TLAKE
+========================================
+name=TMOML
+        interp_option=nearest_neighbor+search
+#       interp_option=sixteen_pt+four_pt+wt_average_4pt+search
+        masked=land
+        interp_mask=LANDSEA(>0.01)
+        missing_value=200.
+        fill_missing=-20.
+========================================
+name=T0
+        interp_option=four_pt+wt_average_4pt+search
+        masked=land
+        interp_mask=LANDSEA(>0.01)
+        missing_value=200.
+        fill_missing=-20.
+========================================
+name=QNWFA_JAN
+	z_dim_name=num_qnwfa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNWFA_FEB
+	z_dim_name=num_qnwfa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNWFA_MAR
+	z_dim_name=num_qnwfa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNWFA_APR
+	z_dim_name=num_qnwfa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNWFA_MAY
+	z_dim_name=num_qnwfa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNWFA_JUN
+	z_dim_name=num_qnwfa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNWFA_JUL
+	z_dim_name=num_qnwfa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNWFA_AUG
+	z_dim_name=num_qnwfa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNWFA_SEP
+	z_dim_name=num_qnwfa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNWFA_OCT
+	z_dim_name=num_qnwfa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNWFA_NOV
+	z_dim_name=num_qnwfa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNWFA_DEC
+	z_dim_name=num_qnwfa_levels
+        interp_option=four_pt+wt_average_4pt
+        flag_in_output=FLAG_QNWFA
+========================================
+name=QNIFA_JAN
+	z_dim_name=num_qnifa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNIFA_FEB
+	z_dim_name=num_qnifa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNIFA_MAR
+	z_dim_name=num_qnifa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNIFA_APR
+	z_dim_name=num_qnifa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNIFA_MAY
+	z_dim_name=num_qnifa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNIFA_JUN
+	z_dim_name=num_qnifa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNIFA_JUL
+	z_dim_name=num_qnifa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNIFA_AUG
+	z_dim_name=num_qnifa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNIFA_SEP
+	z_dim_name=num_qnifa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNIFA_OCT
+	z_dim_name=num_qnifa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNIFA_NOV
+	z_dim_name=num_qnifa_levels
+        interp_option=four_pt+wt_average_4pt
+========================================
+name=QNIFA_DEC
+	z_dim_name=num_qnifa_levels
+        interp_option=four_pt+wt_average_4pt
+        flag_in_output=FLAG_QNIFA
+========================================
